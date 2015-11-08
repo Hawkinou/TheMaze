@@ -66,15 +66,6 @@ public class TheMaze extends Activity implements SensorEventListener {
     @AfterViews
     public void initButton(){
         buttonSwitchView.setText("Switch View");
-        mazeView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float x= event.getX();
-                float y= event.getY();
-                mazeView.changeXYOnClick(x, y);
-                return false;
-            }
-        });
     }
 
     @Override
