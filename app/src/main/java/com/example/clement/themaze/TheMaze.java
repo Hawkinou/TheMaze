@@ -71,7 +71,6 @@ public class TheMaze extends Activity implements SensorEventListener {
             public boolean onTouch(View v, MotionEvent event) {
                 float x= event.getX();
                 float y= event.getY();
-                Log.e("TAMERETAMERE", x +" "+y );
                 mazeView.changeXYOnClick(x, y);
                 return false;
             }

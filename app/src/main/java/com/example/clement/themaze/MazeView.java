@@ -63,7 +63,6 @@ public class MazeView extends SurfaceView {
                                        int width, int height) {
             }
         });
-
     }
     @Override
     protected void onMeasure(int w, int h){
@@ -228,7 +227,6 @@ public class MazeView extends SurfaceView {
     }
 
     public void changeXYOnClick(float y,float x){
-        Log.e("TAGLAUTRECACA", this.x +" "+this.y);
         int newX=(int) ((x - w/2)/16)+this.x;
         int newY=(int) ((y - h/2)/16)+this.y;
         int largeurCase =Math.min( w / 16,h/16);
@@ -249,7 +247,6 @@ public class MazeView extends SurfaceView {
             this.x=newX;
             //this.angle=0;
         }
-        Log.e("TAGLAUTRECAAAAAAaaCA", this.x +" "+this.y);
     }
 
    public void setMapView(){
