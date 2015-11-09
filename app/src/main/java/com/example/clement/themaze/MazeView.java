@@ -91,6 +91,5 @@ public class MazeView extends SurfaceView {
     @AfterViews
     public void initPos(){
         int largeurCase =Math.min( w / 16,h/16);
-        x=maze.getEntry()[0]%16*largeurCase
     }
 }
