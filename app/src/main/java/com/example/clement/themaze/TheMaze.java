@@ -32,20 +32,26 @@ public class TheMaze extends Activity implements SensorEventListener {
     String interactionSwip;
     int numInteractionDeplacement;
     int numInteractionSwip;
+    GesturPad gestures;
     @ViewById
     MazeView mazeView;
 
     private boolean map=true;
     @Click
     public void buttonSwitchView(){
+        switchView();
+    }
+    public void switchView(){
         mazeView.setMapView();
         map=!map;
         if (map){
-            sensorManager.unregisterListener(this);
+            if (numInteractionDeplacement==1)
+                sensorManager.unregisterListener(this);
 
         }
         else{
-            sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+            if (numInteractionDeplacement==1)
+                sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
         }
     }
@@ -57,11 +63,6 @@ public class TheMaze extends Activity implements SensorEventListener {
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
-        d = wm.getDefaultDisplay();
-
     }
 
 
@@ -74,15 +75,29 @@ public class TheMaze extends Activity implements SensorEventListener {
         switch (interactionDeplacement){
             case "Accélérometre":
                 numInteractionDeplacement=1;
+                sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+                mAccelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+                d = wm.getDefaultDisplay();
                 break;
             case "onTouch":
                 numInteractionDeplacement=2;
+                mazeView.activeOnTouche();
                 break;
             case "Lancer":
                 numInteractionDeplacement=3;
                 break;
             case "GesturePad":
                 numInteractionDeplacement=4;
+                View v = findViewById(R.id.control);
+                gestures = new GesturPad(this, v, this);
+                v.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        gestures.onTouch(view, motionEvent);
+                        return true;
+                    }
+                });
                 break;
         }
         switch (interactionSwip){
@@ -99,8 +114,6 @@ public class TheMaze extends Activity implements SensorEventListener {
                 numInteractionSwip=4;
                 break;
         }
-        Log.e("TAG",numInteractionDeplacement+" "+numInteractionSwip);
-        Log.e("TAG",interactionDeplacement+" "+interactionSwip);
 
     }
 
@@ -134,7 +147,7 @@ public class TheMaze extends Activity implements SensorEventListener {
 
 
 
-                //mazeView.changeXY(x, y);
+                //theMaze.changeXY(x, y);
                 mazeView.changeXY(x, y);
                 //Log.e("TAG",x+" "+ y);
 
@@ -146,14 +159,14 @@ public class TheMaze extends Activity implements SensorEventListener {
     }
     protected void onResume() {
         super.onResume();
-        sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        if (numInteractionDeplacement==1&&!map)
+            sensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
     protected void onPause() {
         super.onPause();
-        sensorManager.unregisterListener(this);
-
-
+        if (numInteractionDeplacement==1)
+            sensorManager.unregisterListener(this);
     }
 
 }
