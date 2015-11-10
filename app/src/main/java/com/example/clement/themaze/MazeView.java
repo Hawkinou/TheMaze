@@ -30,6 +30,7 @@ public class MazeView extends SurfaceView {
     private int y;
     private boolean init= true;
     private float angle;
+    private long lastUpdate = 0;
 
     public MazeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -197,6 +198,8 @@ public class MazeView extends SurfaceView {
     }
 
     public void changeXY(float y , float x){
+        y=y*3;
+        x=x*3;
         int largeurCase =Math.min( w / 16,h/16);
         int newX=this.x;
         int newY=this.y;
@@ -271,9 +274,15 @@ public class MazeView extends SurfaceView {
                 break;
             }
             case MotionEvent.ACTION_MOVE:{
-                float x= event.getX();
-                float y= event.getY();
-                changeXYOnClick(x, y);
+                long curTime = System.currentTimeMillis();
+
+                if ((curTime - lastUpdate) > 50) {
+                    long diffTime = (curTime - lastUpdate);
+                    lastUpdate = curTime;
+                    float x = event.getX();
+                    float y = event.getY();
+                    changeXYOnClick(x, y);
+                }
             }
         }
         return true;
