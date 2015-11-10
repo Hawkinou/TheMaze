@@ -2,39 +2,39 @@
 <items version="2" >
 
     <item
-        jar="D:\Android\TheMaze\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
+        jar="C:\Users\carrefour\AndroidStudioProjects\maze\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="D:\Android\TheMaze\app\build\intermediates\pre-dexed\debug\classes-cc020a1c57e2575a6721e4378da869007046453e.jar" />
+        <dex dex="C:\Users\carrefour\AndroidStudioProjects\maze\app\build\intermediates\pre-dexed\debug\classes-5988a2320c8413e182ae78d94e519c2b9eb93270.jar" />
     </item>
     <item
-        jar="C:\Users\Remi\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
-        jumboMode="false"
-        revision="21.1.2"
-        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="D:\Android\TheMaze\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1-a419b899b17336918dee5887dbc5e3025f3c0669.jar" />
-    </item>
-    <item
-        jar="D:\Android\TheMaze\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
+        jar="C:\Users\carrefour\AndroidStudioProjects\maze\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="D:\Android\TheMaze\app\build\intermediates\pre-dexed\debug\classes-67f6f4c25be603b78a49cc946a12574fcdfad43f.jar" />
+        <dex dex="C:\Users\carrefour\AndroidStudioProjects\maze\app\build\intermediates\pre-dexed\debug\classes-0dc1ee692524fe4dd13413c30066cf3803790c79.jar" />
     </item>
     <item
-        jar="C:\Users\Remi\.gradle\caches\modules-2\files-2.1\org.androidannotations\androidannotations-api\3.3.2\7d6149d856b880bbd676047aacb8446a758fbbdb\androidannotations-api-3.3.2.jar"
+        jar="C:\Users\carrefour\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
         jumboMode="false"
         revision="21.1.2"
-        sha1="7d6149d856b880bbd676047aacb8446a758fbbdb">
-        <dex dex="D:\Android\TheMaze\app\build\intermediates\pre-dexed\debug\androidannotations-api-3.3.2-c8978338447f38cab7b653c6aeb252f57aeeebfb.jar" />
+        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
+        <dex dex="C:\Users\carrefour\AndroidStudioProjects\maze\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1-f3461a9f46de50662a17e2ae6c06dc9dca54bfb3.jar" />
     </item>
     <item
-        jar="D:\Android\TheMaze\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
+        jar="C:\Users\carrefour\AndroidStudioProjects\maze\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
         jumboMode="false"
         revision="21.1.2"
         sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="D:\Android\TheMaze\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-dcf8ec49f20254446a5fb54ba3fd2642cbd6a9e8.jar" />
+        <dex dex="C:\Users\carrefour\AndroidStudioProjects\maze\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-8505a0084d05ceed6fd6481390a9fc8d540f3909.jar" />
+    </item>
+    <item
+        jar="C:\Users\carrefour\.gradle\caches\modules-2\files-2.1\org.androidannotations\androidannotations-api\3.3.2\7d6149d856b880bbd676047aacb8446a758fbbdb\androidannotations-api-3.3.2.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="7d6149d856b880bbd676047aacb8446a758fbbdb">
+        <dex dex="C:\Users\carrefour\AndroidStudioProjects\maze\app\build\intermediates\pre-dexed\debug\androidannotations-api-3.3.2-a33934393726ef8a1fc7988b83e1e239e3d23e03.jar" />
     </item>
 
 </items>

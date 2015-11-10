@@ -233,6 +233,7 @@ public class MazeView extends SurfaceView {
         int newX=(int) ((x - w/2)/16)+this.x;
         int newY=(int) ((y - h/2)/16)+this.y;
         int largeurCase =Math.min( w / 16,h/16);
+
         int caseX=newX/largeurCase;
         int caseY=newY/largeurCase;
         int caseX0=this.x/largeurCase;

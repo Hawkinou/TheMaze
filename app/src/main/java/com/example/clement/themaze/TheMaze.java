@@ -3,6 +3,7 @@ package com.example.clement.themaze;
 import android.app.Activity;
 import android.app.usage.UsageEvents;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -27,11 +28,12 @@ public class TheMaze extends Activity implements SensorEventListener {
 
     @ViewById
     Button buttonSwitchView;
-
+    String interactionDeplacement;
+    String interactionSwip;
+    int numInteractionDeplacement;
+    int numInteractionSwip;
     @ViewById
     MazeView mazeView;
-    private long lastUpdate = 0;
-    private float last_x, last_y, last_z;
 
     private boolean map=true;
     @Click
@@ -66,6 +68,39 @@ public class TheMaze extends Activity implements SensorEventListener {
     @AfterViews
     public void initButton(){
         buttonSwitchView.setText("Switch View");
+        Intent intent = getIntent();
+        interactionDeplacement = intent.getStringExtra("interactionDep");
+        interactionSwip = intent.getStringExtra("interactionDep2");
+        switch (interactionDeplacement){
+            case "Accélérometre":
+                numInteractionDeplacement=1;
+                break;
+            case "onTouch":
+                numInteractionDeplacement=2;
+                break;
+            case "Lancer":
+                numInteractionDeplacement=3;
+                break;
+            case "GesturePad":
+                numInteractionDeplacement=4;
+                break;
+        }
+        switch (interactionSwip){
+            case "Bouton":
+                numInteractionSwip=1;
+                break;
+            case "Swap":
+                numInteractionSwip=2;
+                break;
+            case "Détection vocale":
+                numInteractionSwip=3;
+                break;
+            case "Remuer":
+                numInteractionSwip=4;
+                break;
+        }
+        Log.e("TAG",numInteractionDeplacement+" "+numInteractionSwip);
+        Log.e("TAG",interactionDeplacement+" "+interactionSwip);
 
     }
 
@@ -98,8 +133,7 @@ public class TheMaze extends Activity implements SensorEventListener {
             }
 
 
-                last_x = x;
-                last_y = y;
+
                 //mazeView.changeXY(x, y);
                 mazeView.changeXY(x, y);
                 //Log.e("TAG",x+" "+ y);
