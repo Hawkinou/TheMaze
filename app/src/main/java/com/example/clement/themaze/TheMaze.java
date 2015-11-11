@@ -31,7 +31,7 @@ public class TheMaze extends Activity implements SensorEventListener {
     String interactionDeplacement;
     String interactionSwip;
     int numInteractionDeplacement;
-    int numInteractionSwip;
+    int numLabyrinthe;
     GesturPad gestures;
     @ViewById
     MazeView mazeView;
@@ -86,6 +86,7 @@ public class TheMaze extends Activity implements SensorEventListener {
                 break;
             case "Lancer":
                 numInteractionDeplacement=3;
+                mazeView.activeLaunch();
                 break;
             case "GesturePad":
                 numInteractionDeplacement=4;
@@ -101,17 +102,16 @@ public class TheMaze extends Activity implements SensorEventListener {
                 break;
         }
         switch (interactionSwip){
-            case "Bouton":
-                numInteractionSwip=1;
+
+            case "Labyrinthe 1":
+                numLabyrinthe=1;
+                mazeView.setNumLabyrinthe(numLabyrinthe);
+
+                Log.e("Second ou first?:", "" + numLabyrinthe);
                 break;
-            case "Swap":
-                numInteractionSwip=2;
-                break;
-            case "Détection vocale":
-                numInteractionSwip=3;
-                break;
-            case "Remuer":
-                numInteractionSwip=4;
+            case "Labyrinthe 2":
+                numLabyrinthe=2;
+                mazeView.setNumLabyrinthe(numLabyrinthe);
                 break;
         }
 
