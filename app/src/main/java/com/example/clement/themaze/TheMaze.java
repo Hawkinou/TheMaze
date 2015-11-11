@@ -86,6 +86,7 @@ public class TheMaze extends Activity implements SensorEventListener {
                 break;
             case "Lancer":
                 numInteractionDeplacement=3;
+                mazeView.activeLaunch();
                 break;
             case "GesturePad":
                 numInteractionDeplacement=4;
