@@ -380,6 +380,12 @@ public class MazeView extends SurfaceView {
             }
             int avanceX=distX/100;
             int avanceY=distY/100;
+            if(avanceX==0){
+                distX=0;
+            }
+            if(avanceY==0){
+                distY=0;
+            }
             while(distX>0 && distY>0) {
                 int newX=(int)mazeView.x+avanceX*orientationX;
                 int newY=(int)mazeView.y+avanceY*orientationY;
