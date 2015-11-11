@@ -1,14 +1,13 @@
 package com.example.clement.themaze;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.RotateDrawable;
+
+import android.os.AsyncTask;
 import android.util.AttributeSet;
 
 import android.graphics.drawable.Drawable;
@@ -17,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-import org.androidannotations.annotations.Background;
 
 public class MazeView extends SurfaceView {
     Paint paint;
@@ -35,8 +33,8 @@ public class MazeView extends SurfaceView {
     private boolean activeLaunch=false;
     public int launchFromX;
     public int launchFromY;
-    private boolean launching;
-    private boolean moving;
+    private boolean launching=false;
+    private boolean moving=false;
 
     public MazeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -230,15 +228,12 @@ public class MazeView extends SurfaceView {
         if (newX>=0 && newY>=0&&!(caseX < 0 || caseX >= maze.getX()) && !(caseY  < 0 || caseY >= maze.getY()) && !(maze.getGrille()[caseX][caseY] == 0)) {
             this.x=newX;
             this.y=newY;
-            //this.angle=45;
         }
         else if (newY>=0 &&!(caseX0 < 0 || caseX0 >= maze.getX()) && !(caseY  < 0 || caseY >= maze.getY()) && !(maze.getGrille()[caseX0][caseY] == 0)) {
             this.y=newY;
-            //this.angle=90;
         }
         else if (newX>=0 &&!(caseX < 0 || caseX >= maze.getX()) && !(caseY0  < 0 || caseY0 >= maze.getY()) &&!( maze.getGrille()[caseX][caseY0] == 0)) {
             this.x=newX;
-            //this.angle=0;
         }
     }
 
@@ -254,15 +249,12 @@ public class MazeView extends SurfaceView {
         if (newX>=0 && newY>=0&&!(caseX < 0 || caseX >= maze.getX()) && !(caseY  < 0 || caseY >= maze.getY()) && !(maze.getGrille()[caseX][caseY] == 0)) {
             this.x=newX;
             this.y=newY;
-            //this.angle=45;
         }
         else if (newY>=0 &&!(caseX0 < 0 || caseX0 >= maze.getX()) && !(caseY  < 0 || caseY >= maze.getY()) && !(maze.getGrille()[caseX0][caseY] == 0)) {
             this.y=newY;
-            //this.angle=90;
         }
         else if (newX>=0 &&!(caseX < 0 || caseX >= maze.getX()) && !(caseY0  < 0 || caseY0 >= maze.getY()) &&!( maze.getGrille()[caseX][caseY0] == 0)) {
             this.x=newX;
-            //this.angle=0;
         }
     }
 
@@ -294,10 +286,11 @@ public class MazeView extends SurfaceView {
                     if (activeOnTouch && ! mapView) {
                         changeXYOnClick(x, y);
                     }
-                    else if(activeLaunch&& !mapView){
+                    else if(activeLaunch&& !mapView&& !moving){
                         launching=false;
                         moving =true;
-                        launchBall(x,y);}
+                        new LaunchBall(this,(int) x,(int) y).execute();
+                    }
                     break;
                 }
                 case MotionEvent.ACTION_MOVE: {
@@ -314,6 +307,7 @@ public class MazeView extends SurfaceView {
                         }
                     }
                     else if(activeLaunch&& !mapView&& !moving){
+
                         launchFromX=(int) event.getX();
                         launchFromY=(int) event.getY();
                     }
@@ -331,48 +325,103 @@ public class MazeView extends SurfaceView {
         activeLaunch=true;
     }
 
-    @Background
-    public void launchBall(float x, float y){
-        /*int distX=(int) (x*2)-h/2;
-        int distY=(int) y*2-h/2;
-        while(distX!=0 && distY!=0){
-            int newX;
-            int newY;
-            if (newX>=0 && newY>=0&&!(caseX < 0 || caseX >= maze.getX()) && !(caseY  < 0 || caseY >= maze.getY()) && !(maze.getGrille()[caseX][caseY] == 0)) {
-                this.x=newX;
-                this.y=newY;
-            }
-            else if (newY>=0 &&!(caseX0 < 0 || caseX0 >= maze.getX()) && !(caseY  < 0 || caseY >= maze.getY()) && !(maze.getGrille()[caseX0][caseY] == 0)) {
-                this.y=newY;
-            }
-            else if (newX>=0 &&!(caseX < 0 || caseX >= maze.getX()) && !(caseY0  < 0 || caseY0 >= maze.getY()) &&!( maze.getGrille()[caseX][caseY0] == 0)) {
-                this.x=newX;
+    public void launchBall(float y, float x){
+
+    }
+    public void setXY(int x,int y){
+        this.x=x;
+        this.y=y;
+        Log.e("TAG",x+" "+y);
+
+    }
+    private class LaunchBall extends AsyncTask<Void, Integer, Void>
+    {
+        MazeView mazeView;
+
+        int x2;
+        int y2;
+        LaunchBall(MazeView mazeView, int y, int x){
+            this.mazeView=mazeView;
+            this.x2=x;
+            this.y2=y;
+
+        }
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onProgressUpdate(Integer... values){
+            super.onProgressUpdate(values);
+            mazeView.setXY(values[0], values[1]);
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            int distX=(int) -(x2-h/2)*2;
+            int distY=(int) -(y2-h/2)*2;
+            int orientationX;
+            int orientationY;
+            if( distX>0){
+                orientationX=1;
             }
             else{
-
+                orientationX=-1;
+                distX*=-1;
             }
+            if( distY>0){
+                orientationY=1;
+            }
+            else{
+                orientationY=-1;
+                distY*=-1;
+            }
+            int avanceX=distX/8;
+            int avanceY=distY/8;
+            while(distX>0 && distY>0) {
+                int newX=(int)mazeView.x+avanceX*orientationX;
+                int newY=(int)mazeView.y+avanceY*orientationY;
+
+                int largeurCase =Math.min( w / 16,h/16);
+                int caseX=newX/largeurCase;
+                int caseY=newY/largeurCase;
+                int caseX0=mazeView.x/largeurCase;
+                int caseY0=mazeView.y/largeurCase;
+                if (newX >= 0 && newY >= 0 && !(caseX < 0 || caseX >= maze.getX()) && !(caseY < 0 || caseY >= maze.getY()) && !(maze.getGrille()[caseX][caseY] == 0)) {
+
+                } else if (newY >= 0 && !(caseX0 < 0 || caseX0 >= maze.getX()) && !(caseY < 0 || caseY >= maze.getY()) && !(maze.getGrille()[caseX0][caseY] == 0)) {
+                    orientationX*=-1;
+                    mazeView.x=(int)mazeView.x+avanceX*orientationX;
+                } else if (newX >= 0 && !(caseX < 0 || caseX >= maze.getX()) && !(caseY0 < 0 || caseY0 >= maze.getY()) && !(maze.getGrille()[caseX][caseY0] == 0)) {
+                    orientationY*=-1;
+                    mazeView.y=(int)mazeView.y+avanceY*orientationY;
+                } else {
+                    orientationX*=-1;
+                    mazeView.x=(int)mazeView.x+avanceX*orientationX;
+                    orientationY*=-1;
+                    mazeView.y=(int)mazeView.y+avanceY*orientationY;
+                }
+
+                distX-=avanceX;
+                distY-=avanceY;
+                /*avanceX-=2;
+                avanceY-=2;*/
+                publishProgress(newX,newY);
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return null;
         }
-        int caseX=newX/largeurCase;
-        int caseY=newY/largeurCase;
-        int caseX0=this.x/largeurCase;
-        int caseY0=this.y/largeurCase;
-        if (newX>=0 && newY>=0&&!(caseX < 0 || caseX >= maze.getX()) && !(caseY  < 0 || caseY >= maze.getY()) && !(maze.getGrille()[caseX][caseY] == 0)) {
-            this.x=newX;
-            this.y=newY;
-            //this.angle=45;
+
+        @Override
+        protected void onPostExecute(Void result) {
+            mazeView.moving=false;
+
         }
-        else if (newY>=0 &&!(caseX0 < 0 || caseX0 >= maze.getX()) && !(caseY  < 0 || caseY >= maze.getY()) && !(maze.getGrille()[caseX0][caseY] == 0)) {
-            this.y=newY;
-            //this.angle=90;
-        }
-        else if (newX>=0 &&!(caseX < 0 || caseX >= maze.getX()) && !(caseY0  < 0 || caseY0 >= maze.getY()) &&!( maze.getGrille()[caseX][caseY0] == 0)) {
-            this.x=newX;
-            //this.angle=0;
-        }
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
     }
 }
