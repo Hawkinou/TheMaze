@@ -24,13 +24,12 @@ public class MazeView extends SurfaceView {
     private int h;
     private GameLoopThread gameLoopThread;
     private SurfaceHolder holder;
-    private Bitmap bmp;
-    private boolean mapView;
+    public boolean mapView;
     private int x;
     private int y;
     private boolean init= true;
-    private float angle;
     private long lastUpdate = 0;
+    private boolean activeOnTouch=false;
 
     public MazeView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -230,10 +229,11 @@ public class MazeView extends SurfaceView {
         }
     }
 
-    public void changeXYOnClick(float y,float x){
+    public void changeXYOnClick(double y,double x){
         int newX=(int) ((x - w/2)/16)+this.x;
         int newY=(int) ((y - h/2)/16)+this.y;
         int largeurCase =Math.min( w / 16,h/16);
+
         int caseX=newX/largeurCase;
         int caseY=newY/largeurCase;
         int caseX0=this.x/largeurCase;
@@ -259,32 +259,46 @@ public class MazeView extends SurfaceView {
 
     @Override
     public boolean onTouchEvent(MotionEvent event){
-        super.onTouchEvent(event);
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN: {
-                float x= event.getX();
-                float y= event.getY();
-                changeXYOnClick(x, y);
-                break;
-            }
-            case MotionEvent.ACTION_UP: {
-                float x= event.getX();
-                float y= event.getY();
-                changeXYOnClick(x, y);
-                break;
-            }
-            case MotionEvent.ACTION_MOVE:{
-                long curTime = System.currentTimeMillis();
+            super.onTouchEvent(event);
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN: {
+                    if (activeOnTouch && ! mapView) {
 
-                if ((curTime - lastUpdate) > 50) {
-                    long diffTime = (curTime - lastUpdate);
-                    lastUpdate = curTime;
-                    float x = event.getX();
-                    float y = event.getY();
-                    changeXYOnClick(x, y);
+                        float x = event.getX();
+                        float y = event.getY();
+                        changeXYOnClick(x, y);
+                    }
+                    break;
+                }
+                case MotionEvent.ACTION_UP: {
+                    if (activeOnTouch && ! mapView) {
+
+                        float x = event.getX();
+                        float y = event.getY();
+                        changeXYOnClick(x, y);
+                    }
+                    break;
+                }
+                case MotionEvent.ACTION_MOVE: {
+                    if (activeOnTouch && ! mapView) {
+
+                        long curTime = System.currentTimeMillis();
+
+                    if ((curTime - lastUpdate) > 50) {
+                        long diffTime = (curTime - lastUpdate);
+                        lastUpdate = curTime;
+                        float x = event.getX();
+                        float y = event.getY();
+                        changeXYOnClick(x, y);
+                    }
+                    }
                 }
             }
-        }
+
         return true;
+    }
+
+    public void activeOnTouche() {
+        activeOnTouch=true;
     }
 }
