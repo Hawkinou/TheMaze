@@ -378,8 +378,8 @@ public class MazeView extends SurfaceView {
                 orientationY=-1;
                 distY*=-1;
             }
-            int avanceX=distX/8;
-            int avanceY=distY/8;
+            int avanceX=distX/100;
+            int avanceY=distY/100;
             while(distX>0 && distY>0) {
                 int newX=(int)mazeView.x+avanceX*orientationX;
                 int newY=(int)mazeView.y+avanceY*orientationY;
@@ -410,7 +410,7 @@ public class MazeView extends SurfaceView {
                 avanceY-=2;*/
                 publishProgress(newX,newY);
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
