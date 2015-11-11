@@ -142,12 +142,45 @@ public class Maze {
                 grille[i][j]=0;
             }
         }
+        grille[8][0]=0;
+        grille[9][0]=0;
         grille[1][2]=1;
         grille[2][2]=1;
         grille[3][1]=1;
         grille[3][3]=1;
         grille[4][4]=1;
-        grille[4][4]=1;
+        grille[5][3]=1;
+        grille[6][4]=1;
+        grille[6][5]=1;
+        grille[6][6]=1;
+        grille[5][7]=1;
+        grille[4][6]=1;
+        grille[3][7]=1;
+        grille[3][8]=1;
+        grille[4][9]=1;
+        grille[4][10]=1;
+        grille[3][11]=1;
+        grille[4][12]=1;
+        grille[5][12]=1;
+        grille[6][11]=1;
+        grille[7][10]=1;
+        grille[8][11]=1;
+        grille[9][10]=1;
+        grille[10][11]=1;
+        grille[11][11]=1;
+        grille[12][10]=1;
+        grille[11][9]=1;
+        grille[12][8]=1;
+        grille[11][7]=1;
+        grille[12][6]=1;
+        grille[12][5]=1;
+        grille[12][4]=1;
+        grille[11][3]=1;
+        grille[12][2]=1;
+        grille[11][1]=1;
+        grille[10][1]=1;
+        grille[9][1]=1;
+
         /*
         for (int i =0;i<8;i++){
             if (i==6||i==15||i==12){
@@ -160,7 +193,8 @@ public class Maze {
                 grille[2][i]=1;
             }
         }*/
-
+        grille[8][0]=3;
+        grille[7][0]=3;
         grille[1][0]= 2;
         grille[2][0]= 2;
     }
