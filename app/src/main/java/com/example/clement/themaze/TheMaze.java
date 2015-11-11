@@ -125,7 +125,7 @@ public class TheMaze extends Activity implements SensorEventListener {
             float x = event.values[0];
             float y = event.values[1];
             //Log.e("TAG", x + " " + y);
-    
+
             switch(d.getRotation()) {
                 case Surface.ROTATION_0:
                     x = event.values[0];
